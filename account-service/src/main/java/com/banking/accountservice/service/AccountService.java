@@ -22,11 +22,28 @@ public class AccountService {
     }
 
     public Account createAccount(CreateAccountDTO dto) {
-        Account account = new Account(null, dto.name(), dto.email(), dto.balance());
+
+        var existingAccountWithEmail = accountRepository.findByEmail(dto.email());
+        var existingAccountWithDocument = accountRepository.findByDocumentNumber(dto.documentNumber());
+
+
+        if (existingAccountWithEmail != null || existingAccountWithDocument != null) {
+            throw new RuntimeException("Account already exists with the provided email or document number");
+        }
+
+        Account account = new Account(
+                null,
+                dto.name(),
+                dto.email(),
+                dto.balance(),
+                dto.documentType(),
+                dto.documentNumber()
+        );
+
         Account saved = accountRepository.save(account);
 
         eventPublisher.publishAccountCreated(new AccountCreatedEvent(
-                saved.getId(), saved.getName(), saved.getEmail(), saved.getBalance()
+                saved.getId(), saved.getName(), saved.getEmail(), saved.getBalance(), saved.getDocumentType(), saved.getDocumentNumber()
         ));
 
         return saved;
@@ -60,7 +77,9 @@ public class AccountService {
                 existingAccount.getId(),
                 updateAccountDTO.name(),
                 updateAccountDTO.email(),
-                updateAccountDTO.balance()
+                updateAccountDTO.balance(),
+                updateAccountDTO.documentType(),
+                updateAccountDTO.documentNumber()
         );
         return accountRepository.save(updatedAccount);
     }
