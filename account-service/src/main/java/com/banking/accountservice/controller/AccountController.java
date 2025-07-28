@@ -24,6 +24,11 @@ public class AccountController {
         return ResponseEntity.ok(accountService.getAllAccounts());
     }
 
+    @GetMapping("/document/{documentNumber}")
+    public ResponseEntity<Account> getAccountByDocument(@PathVariable String documentNumber) {
+        return ResponseEntity.ok(accountService.getAccountByDocument(documentNumber));
+    }
+
     @PostMapping
     public ResponseEntity<Account> createAccount(@RequestBody CreateAccountDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(accountService.createAccount(dto));

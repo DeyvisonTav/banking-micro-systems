@@ -53,6 +53,10 @@ public class AccountService {
         return accountRepository.findAll();
     }
 
+    public Account getAccountByDocument(String documentNumber){
+        return accountRepository.findByDocumentNumber(documentNumber);
+    }
+
     public Account getAccountById(UUID id) {
         return accountRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Account not found"));
