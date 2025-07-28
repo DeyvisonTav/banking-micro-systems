@@ -3,6 +3,8 @@ package com.banking.accountservice.service;
 import com.banking.accountservice.domain.dto.CreateAccountDTO;
 import com.banking.accountservice.domain.dto.UpdateAccountDTO;
 import com.banking.accountservice.domain.entity.Account;
+import com.banking.accountservice.exception.ApiException;
+import com.banking.accountservice.exception.NotFoundException;
 import com.banking.accountservice.messaging.AccountEventPublisher;
 import com.banking.accountservice.messaging.event.AccountCreatedEvent;
 import com.banking.accountservice.repository.AccountRepository;
@@ -28,7 +30,10 @@ public class AccountService {
 
 
         if (existingAccountWithEmail != null || existingAccountWithDocument != null) {
-            throw new RuntimeException("Account already exists with the provided email or document number");
+            throw new ApiException(
+                    "Account with this email or document number already exists",
+                    400
+            );
         }
 
         Account account = new Account(
@@ -59,14 +64,14 @@ public class AccountService {
 
     public Account getAccountById(UUID id) {
         return accountRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new NotFoundException("Account not found"));
     }
 
     public Account findAccountByEmail(String email) {
         return accountRepository.findAll().stream()
                 .filter(account -> account.getEmail().equals(email))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new NotFoundException("Account not found"));
     }
 
     public void deleteAccount(UUID id) {

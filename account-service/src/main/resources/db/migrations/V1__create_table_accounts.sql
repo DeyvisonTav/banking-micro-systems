@@ -1,0 +1,8 @@
+CREATE TABLE accounts (
+ id UUID PRIMARY KEY,
+ name VARCHAR(255) NOT NULL,
+ email VARCHAR(255) UNIQUE NOT NULL,
+ balance INTEGER DEFAULT 0,
+ document_type VARCHAR(10),
+ document_number VARCHAR(20) UNIQUE
+);
