@@ -7,7 +7,7 @@ import com.banking.accountservice.exception.ApiException;
 import com.banking.accountservice.exception.NotFoundException;
 import com.banking.accountservice.messaging.AccountEventPublisher;
 import com.banking.accountservice.messaging.event.AccountCreatedEvent;
-import com.banking.accountservice.repository.AccountRepository;
+import com.banking.accountservice.domain.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

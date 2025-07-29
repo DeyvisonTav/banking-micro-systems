@@ -1,4 +1,4 @@
-package com.banking.accountservice.repository;
+package com.banking.accountservice.domain.repository;
 
 import com.banking.accountservice.domain.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -25,6 +25,11 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Queue transactionQueue() {
+        return new Queue("transaction.created.queue", true);
+    }
+
+    @Bean
     public Binding binding() {
         return BindingBuilder
                 .bind(accountCreatedQueue())
