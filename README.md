@@ -409,4 +409,4 @@ Este projeto é licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE)
 ⚪ Fase 5 - Security          [░░░░░░░░░░░░░░░░░░░░] 0%
 ```
 
-**Desenvolvido com ♥️ e arquitetura sênior em mente** 
+**Desenvolvido com ♥️ por [@DeyvisonTavares](https://github.com/DeyvisonTav)** 
